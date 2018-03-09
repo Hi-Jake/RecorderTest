@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.pc.recordertest.MainActivity">
+
+    <Button
+        android:id="@+id/recordeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="녹음"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+    <Button
+        android:id="@+id/recordeStopBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="녹음정지"
+        app:layout_constraintLeft_toRightOf="@id/recordeBtn"
+        />
+    <Button
+        android:id="@+id/playBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="재생"
+        app:layout_constraintLeft_toRightOf="@id/recordeStopBtn"
+        />
+    <Button
+        android:id="@+id/playStopBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="재생정지"
+        app:layout_constraintLeft_toRightOf="@id/playBtn"
+        />
+
+
+</android.support.constraint.ConstraintLayout>
