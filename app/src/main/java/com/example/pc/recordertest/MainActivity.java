@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     Button recordeBtn;
     Button recordeStopBtn;
     Button playBtn;
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //권한 설정
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_RECORD_AUDIO: {
                 // If request is cancelled, the result arrays are empty.
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void checkAllPermissions(){
+        //전체 권한 획득 확인
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             checkPermission(MY_PERMISSIONS_REQUEST_RECORD_AUDIO, Manifest.permission.RECORD_AUDIO);
         }
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startRec(){
+        //녹음 시작
         if(recorder != null){
             recorder.stop();
             recorder.release();
@@ -117,13 +120,23 @@ public class MainActivity extends AppCompatActivity {
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        recorder.setMaxDuration(10000);//최대녹음시간 10초 설정
         recorder.setOutputFile(RECORDED_FILE);
+        recorder.setOnInfoListener(new MediaRecorder.OnInfoListener() {
+            @Override
+            public void onInfo(MediaRecorder mediaRecorder, int i, int i1) {
+                if (i == MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED) {
+                    //녹음 최대시간 도달 시 이벤트 작성
+                    stopRec();
+                }
+            }
+        });
         try{
             Toast.makeText(getApplicationContext(), "녹음을 시작합니다.", Toast.LENGTH_SHORT).show();
             recorder.prepare();
             recorder.start();
         }catch (Exception ex){
-            Log.e("SampleAudioRecorder", "Exception : ", ex);
+            Log.e("RecorderStart", "Exception : ", ex);
         }
     }
 
@@ -138,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         recorder.release();
         recorder = null;
 
-        Toast.makeText(getApplicationContext(), "녹음이 중지되었습니다.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "녹음되었습니다.", Toast.LENGTH_SHORT).show();
 
     }
     private void playAudio(String url) throws Exception{
@@ -227,5 +240,4 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 }
