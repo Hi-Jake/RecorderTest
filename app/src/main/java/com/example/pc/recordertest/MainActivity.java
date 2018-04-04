@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity{
     Button recordeStopBtn;
     Button playBtn;
     Button playStopBtn;
-    Button createFolder;
 
     static final String RECORDED_FILE = "/sdcard/download/englishtextbook/recorded.mp4";
 
@@ -199,7 +198,6 @@ public class MainActivity extends AppCompatActivity{
         recordeStopBtn = (Button)findViewById(R.id.recordeStopBtn);
         playBtn = (Button)findViewById(R.id.playBtn);
         playStopBtn = (Button)findViewById(R.id.playStopBtn);
-        createFolder = (Button)findViewById(R.id.createFolder);
 
     }
 
@@ -250,14 +248,5 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         });
-
-        createFolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
-
     }
 }

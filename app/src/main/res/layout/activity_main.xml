@@ -34,13 +34,6 @@
         android:text="재생정지"
         app:layout_constraintLeft_toRightOf="@id/playBtn"
         />
-    <Button
-        android:id="@+id/createFolder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="폴더생성"
-        app:layout_constraintLeft_toRightOf="@id/playBtn"
-        />
 
 
 </android.support.constraint.ConstraintLayout>
