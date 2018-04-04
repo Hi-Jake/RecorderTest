@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -14,13 +15,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity{
     Button recordeBtn;
     Button recordeStopBtn;
     Button playBtn;
     Button playStopBtn;
+    Button createFolder;
 
-    static final String RECORDED_FILE = "/sdcard/recorded.mp4";
+    static final String RECORDED_FILE = "/sdcard/download/englishtextbook/recorded.mp4";
 
     static final int MY_PERMISSIONS_REQUEST_RECORD_AUDIO = 0;
     static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
@@ -116,6 +120,13 @@ public class MainActivity extends AppCompatActivity{
             recorder.release();
             recorder = null;
         }// TODO Auto-generated method stub
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "EnglishTextBook");
+        if (!file.mkdirs()) {
+            Log.e("FILE", "Directory not created");
+        }else{
+            Log.e("FILE", "Directory created");
+//            Toast.makeText(MainActivity.this, "폴더 생성 SUCCESS", Toast.LENGTH_SHORT).show();
+        }
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
@@ -188,6 +199,7 @@ public class MainActivity extends AppCompatActivity{
         recordeStopBtn = (Button)findViewById(R.id.recordeStopBtn);
         playBtn = (Button)findViewById(R.id.playBtn);
         playStopBtn = (Button)findViewById(R.id.playStopBtn);
+        createFolder = (Button)findViewById(R.id.createFolder);
 
     }
 
@@ -236,6 +248,14 @@ public class MainActivity extends AppCompatActivity{
                 }else {
                     Toast.makeText(getApplicationContext(), "음악 파일이 재생중이지 않습니다.",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        createFolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
             }
         });
 
